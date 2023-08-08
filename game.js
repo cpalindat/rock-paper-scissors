@@ -22,19 +22,28 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function game() {
-    const computerChoice = getComputerChoice()
-    
-    // calculate player choice
-    const playerChoice = prompt().toLowerCase()
+    let computerChoice
+    let playerChoice, result
+    let playerScore = 0, computerScore = 0;
 
-    const result = playRound(playerChoice, computerChoice)
-    console.log("Calculating results for: " + playerChoice + " (player) vs. " + computerChoice + " (computer)!")
-    if (result == 0) {
-        console.log("Tie!")
-    } else if (result == 1) {
-        console.log("CPU Wins!")
-    } else {
-        console.log("Player wins!")
+    while (playerScore < 5 &&  computerScore < 5) {
+        playerChoice = prompt().toLowerCase()
+        computerChoice = getComputerChoice()
+        result = playRound(playerChoice, computerChoice)
+        
+        console.log("Calculating results for: " + playerChoice + " (player) vs. " + computerChoice + " (computer)!")
+        
+        if (result == 0) {
+            console.log("Tie!")
+        } else if (result == 1) {
+            console.log("CPU Wins!")
+            computerScore++
+        } else {
+            console.log("Player wins!")
+            playerScore++
+        }
+
+        console.log("Score: " + playerScore + " (Player) | " + computerScore + " (Computer)")
     }
 }
 
