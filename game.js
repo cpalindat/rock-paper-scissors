@@ -1,50 +1,51 @@
 function getComputerChoice() {
-    const x = Math.floor(Math.random() * 3)
-    const choices = ["rock", "paper", "scissors"]
-
-    let result = choices[x]
-    // console.log(result)
-    return result
+    let options = ["rock", "paper", "scissors"]
+    let choiceNumber = Math.floor(Math.random() * 3)
+    return options[choiceNumber]
 }
 
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        return 0
-    } else if (playerSelection == 'paper' && computerSelection == 'scissors') {
+function toTitleCase(str) {
+    return str.slice(0,1).toUpperCase() + str.slice(1).toLowerCase()
+}
+
+function playRound() {
+    let playerChoice = toTitleCase(prompt("Enter your choice."))
+    let computerChoice = toTitleCase(getComputerChoice())
+
+    if (playerChoice == computerChoice) {
+        console.log("Tie! " + playerChoice + " doesn't beat " + computerChoice + "!")
+        return 2
+    } else if (playerChoice == "Rock" && computerChoice == "Scissors") {
+        console.log("You win! " + playerChoice + " beats " + computerChoice + "!")
         return 1
-    } else if (playerSelection == 'rock' && computerSelection == 'paper') {
+    } else if (playerChoice == "Paper" && computerChoice == "Rock") {
+        console.log("You win! " + playerChoice + " beats " + computerChoice + "!")
         return 1
-    } else if (playerSelection == 'scissors' && computerSelection == 'rock') {
+    }
+    else if (playerChoice == "Scissors" && computerChoice == "Paper") {
+        console.log("You win! " + playerChoice + " beats " + computerChoice + "!")
         return 1
     } else {
-        return 2
+        console.log("Computer wins! " + playerChoice + " loses to " + computerChoice + "!")
+        return 0
     }
 }
 
-function game() {
-    let computerChoice
-    let playerChoice, result
-    let playerScore = 0, computerScore = 0;
+function game () {
+    let computerScore = 0
+    let playerScore = 0
+    let results;
 
-    while (playerScore < 5 &&  computerScore < 5) {
-        playerChoice = prompt().toLowerCase()
-        computerChoice = getComputerChoice()
-        result = playRound(playerChoice, computerChoice)
-        
-        console.log("Calculating results for: " + playerChoice + " (player) vs. " + computerChoice + " (computer)!")
-        
-        if (result == 0) {
-            console.log("Tie!")
-        } else if (result == 1) {
-            console.log("CPU Wins!")
-            computerScore++
-        } else {
-            console.log("Player wins!")
+    for (i = 0; i < 5; i++) {
+        results = playRound()
+        if (results == 1) {
             playerScore++
+        } else if (results == 0) {
+            computerScore++
         }
-
-        console.log("Score: " + playerScore + " (Player) | " + computerScore + " (Computer)")
     }
+
+    (playerScore > computerScore) ? console.log("Player wins!") : console.log("Computer wins!")
 }
 
 game()
